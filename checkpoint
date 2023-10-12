@@ -1,0 +1,2 @@
+model_checkpoint_path: "Potato_Model_weights.bin"
+all_model_checkpoint_paths: "Potato_Model_weights.bin"
