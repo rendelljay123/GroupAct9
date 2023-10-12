@@ -4,7 +4,6 @@ from keras.models import load_model
 import numpy as np
 from PIL import Image, ImageOps
 
-# Set page configuration with background image and gradient
 st.set_page_config(
     page_title="Plant Disease Detection",
     page_icon="🌿",
@@ -12,7 +11,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# Define CSS for the background image and gradient
 css = """
 body {
     background-image: url('./assets/leaf-bg.jpg');
@@ -24,7 +22,6 @@ body {
 }
 """
 
-# Apply CSS to Streamlit
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 def load_model(model_path):
@@ -40,25 +37,21 @@ def import_and_predict(image_data, model):
     prediction = model.predict(image_reshape)
     return prediction
 
-# Define model paths for different plant types
 model_paths = {
     'tomato': './model/Tomato_Model.h5',
     'cotton': './model/Cotton_Model.h5',
     'potato': './model/Potato_Model.h5'
 }
 
-# Load default model for initialization
 default_model_path = './model/Tomato_Model.h5'
 model = load_model(default_model_path)
 
-# Define class labels for plant diseases
 class_names = {
     'tomato': {0: 'Tomato_Early_blight', 1: 'Tomato_Leaf_Mold', 2: 'Tomato_healthy'},
     'cotton': {0: 'diseased cotton leaf', 1: 'diseased cotton plant', 2: 'fresh cotton leaf', 3: 'fresh cotton plant'},
     'potato': {0: 'Potato___Early_blight', 1: 'Potato___Late_blight', 2: 'Potato___healthy'}
 }
 
-# Define disease information for each plant type
 disease_info = {
     'tomato': {
         'Tomato_Early_blight': "Early blight is a common fungal disease that affects tomato plants...",
@@ -82,17 +75,14 @@ st.write("# Plant Disease Detection")
 st.write("### CPE 028 - DevOps")
 st.write("Baltazar, Rendell Jay; Dalmacio, Andre Christian; Makiramdam, Releigh; Orbeta, John Mark; Co, Jericho")
 
-# Allow the user to select the plant type
 plant_type = st.selectbox("Select Plant Type", ('tomato', 'cotton', 'potato'))
 
-# Allow the user to upload an image
 file = st.file_uploader("Upload an image", type=["jpg", "png"])
 
 if file is None:
     st.text("Please upload an image file")
 else:
     try:
-        # Load the selected model based on the chosen plant type
         model_path = model_paths.get(plant_type)
         if model_path:
             model = load_model(model_path)
@@ -111,7 +101,6 @@ else:
                     string = f"The {plant_type} plant is {class_name}"
                     st.success(string)
 
-                    # Display disease information in an expander
                     with st.expander("Learn More About the Disease"):
                         disease_description = disease_info.get(plant_type, {}).get(class_name, "No information available.")
                         st.write(disease_description)

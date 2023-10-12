@@ -1,22 +1,7 @@
-# CPE 019 - Emerging Technologies 2 in CpE
+# CPE 028 - Devops
 
 Submitted By <br>
-Baltazar, Rendell Jay; Jarabejo, Joshua; La Madrid, Angelo H. <br>
-
-Web App Deployed in: https://gelolmdrd-plant-disease-detection-deep-lea-streamlit-app-x4k4me.streamlit.app/
-
-## Objective(s):
-
-This activity aims to apply all the learnings for the Final Period.
-
-## Intended Learning Outcomes (ILOs):
-
-- Demonstrate how to train and save a model.
-- Demonstrate how to deploy the deep learning model in the cloud. (not Machine Learning model)
-
-## Deep-Learning Model
-
-This web app is a deployment of a Plant Disease Detection Deep Learning Model. The model can detect plant leaf disease of 3 plants: Cotton, Tomato, and Potato.
+Baltazar, Rendell Jay; Dalmacio, Andre Christian; Makiramdam, Releigh; Orbeta, John Mark; Co, Jericho <br>
 
 To use the app:
 
