@@ -54,7 +54,7 @@ class_names = {
 
 disease_info = {
     'tomato': {
-        'Tomato_Early_blight': "Early blight is a common fungal disease that affects tomato plants...",
+        'Tomato_Early_blight': "Early blight is a common fungal disease that affects tomato plants. It is caused by the fungus Alternaria solani.",
         'Tomato_Leaf_Mold': "Tomato leaf mold is a foliar disease that primarily affects the leaves...",
         'Tomato_healthy': "Your tomato plant looks healthy!",
     },
