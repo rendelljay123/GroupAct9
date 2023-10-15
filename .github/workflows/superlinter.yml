@@ -1,0 +1,33 @@
+name: Lint and Auto-Merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-and-merge:
+    name: Lint and Merge
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Linter
+        run: |
+          # Add your linting command here
+          # Example: eslint . 
+          echo "Linting the code..."
+          # Replace the above line with your linting command
+          
+      - name: Merge Pull Request
+        if: success()  # Only run if linting is successful
+        run: |
+          # Fetch the pull request number from the event payload
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
+
+          # Merge the pull request using the GitHub API
+          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"merge_method":"merge"}' \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge"
