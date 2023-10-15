@@ -16,10 +16,6 @@ jobs:
 
       - name: Run Linter
         run: |
-          # Add your linting command here
-          # Example: eslint . 
-          echo "Linting the code..."
-          # Replace the above line with your linting command
           
       - name: Merge Pull Request
         if: success()  # Only run if linting is successful
