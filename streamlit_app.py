@@ -57,6 +57,8 @@ disease_info = {
         'Tomato_Early_blight': "Early blight is a common fungal disease that affects tomato plants. It is caused by the fungus Alternaria solani.",
         'Tomato_Leaf_Mold': "Tomato leaf mold is a foliar disease that primarily affects the leaves...",
         'Tomato_healthy': "Your tomato plant looks healthy!",
+        'Tomato_Late_Blight': "Late blight is a devastating disease caused by the oomycete pathogen Phytophthora infestans. It affects both foliage and fruit of tomato plants.",
+        'Tomato_Bacterial_Spot': "Bacterial spot is a common disease affecting tomatoes, caused by the bacterium Xanthomonas campestris.",
     },
     'cotton': {
         'diseased cotton leaf': "Diseased cotton leaves often show symptoms like yellowing and wilting...",
