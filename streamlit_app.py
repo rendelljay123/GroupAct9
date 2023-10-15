@@ -67,9 +67,9 @@ disease_info = {
         'other cotton disease 2': "Description for other cotton disease 2...",
     },
     'potato': {
-        'Potato___Early_blight': "Early blight in potatoes can cause dark lesions on leaves...",
-        'Potato___Late_blight': "Late blight is a serious disease of potato and tomato crops...",
-        'Potato___healthy': "Your potato plant looks healthy!",
+        'Potato___Early_blight': "Early blight in potatoes can cause dark lesions on leaves. It is primarily caused by the fungus Alternaria solani. Proper spacing, fungicides, and crop rotation can help manage early blight.",
+        'Potato___Late_blight': "Late blight is a serious disease of potato and tomato crops, caused by the oomycete pathogen Phytophthora infestans. Early detection, proper plant spacing, and fungicide applications are key preventive measures.",
+        'Potato___healthy': "Your potato plant looks healthy! Healthy potato plants typically have vibrant green leaves, well-spaced foliage, and show no signs of discoloration or lesions. Regular monitoring and good agricultural practices contribute to maintaining plant health.",
     }
 }
 
