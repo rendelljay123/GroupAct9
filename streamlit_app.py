@@ -113,3 +113,6 @@ else:
     except Exception as e:
         st.text("Error occurred while processing the image.")
         st.text(str(e))
+
+if st.button("Clear Output"):
+    st.clear()
