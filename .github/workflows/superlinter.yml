@@ -1,29 +1,17 @@
-name: Lint and Auto-Merge
+name: Super-Linter
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
-  lint-and-merge:
-    name: Lint and Merge
+  super-lint:
+    name: Lint code base
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Linter
-        run: |
-          
-      - name: Merge Pull Request
-        if: success()  # Only run if linting is successful
-        run: |
-          # Fetch the pull request number from the event payload
-          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
-
-          # Merge the pull request using the GitHub API
-          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d '{"merge_method":"merge"}' \
-          "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge"
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
