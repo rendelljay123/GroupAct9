@@ -18,24 +18,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Super-Linter
+      - name: Run Super-Linter
         run: |
-          # Clone the Super-Linter repository
-          git clone https://github.com/github/super-linter.git /opt/super-linter
-          
-          # Change to the Super-Linter directory
-          cd /opt/super-linter
-          
-          # Make the installation script executable
-          chmod +x install.sh
-          
-          # Run the Super-Linter installation script
-          ./install.sh
-
-      - name: Run Linter
-        run: |
-          # Run the Super-Linter tool
-          /opt/super-linter/action
+          docker run -e RUN_LOCAL=true -v ${{ github.workspace }}:/tmp/lint github/super-linter:latest
 
       - name: Merge Pull Request
         if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
