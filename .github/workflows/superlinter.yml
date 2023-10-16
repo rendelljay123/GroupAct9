@@ -1,37 +1,34 @@
-name: Lint and Auto-Merge
+name: Lint
 
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
   push:
     branches:
       - main
   pull_request:
-    types:
-      - opened
-      - synchronize
+    branches:
+      - main
 
 jobs:
-  lint-and-merge:
-    name: Lint and Merge
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v3
 
-      - name: Run Linter
-        run: |
-          # Replace with the linter command for your project
-          echo "Running linter..."
-          
-          # You may use commands like black, pylint, or flake8 here
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
 
-      - name: Merge Pull Request
-        if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
-        run: |
-          # Fetch the pull request number from the event payload
-          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
+      - name: Install Python dependencies
+        run: pip install black flake8
 
-          # Merge the pull request using the GitHub API
-          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d '{"merge_method":"merge"}' \
-          "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge"
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          black: true
+          flake8: true
