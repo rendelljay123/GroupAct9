@@ -104,10 +104,6 @@ else:
                     with st.expander("Learn More About the Disease"):
                         disease_description = disease_info.get(plant_type, {}).get(class_name, "No information available.")
                         st.write(disease_description)
-                    # Feedback Mechanism
-                    feedback = st.text_area("Provide Feedback", "")
-                    if st.button("Submit Feedback"):
-                        # Process and store user feedback
                 else:
                     st.text("Invalid class index")
             else:
