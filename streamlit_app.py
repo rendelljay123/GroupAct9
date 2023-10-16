@@ -63,8 +63,6 @@ disease_info = {
         'diseased cotton plant': "Cotton plant diseases can lead to reduced yield and fiber quality...",
         'fresh cotton leaf': "Your cotton leaf appears healthy! In a thriving state, a fresh cotton leaf showcases vibrant green color, smooth texture, and well-defined veins. This is a positive sign of a leaf that is actively contributing to the plant's photosynthesis and overall well-being.",
         'fresh cotton plant': "Your cotton plant appears healthy! A healthy cotton plant exhibits robust growth with lush, green foliage. It stands tall with sturdy stems, indicating a well-nourished and disease-free condition. Proper care has contributed to the plant's vitality and potential for optimal cotton production.",
-        'other cotton disease 1': "Description for other cotton disease 1...",
-        'other cotton disease 2': "Description for other cotton disease 2...",
     },
     'potato': {
         'Potato___Early_blight': "Early blight in potatoes can cause dark lesions on leaves. It is primarily caused by the fungus Alternaria solani. Proper spacing, fungicides, and crop rotation can help manage early blight.",
