@@ -1,52 +1,30 @@
-name: Automated Code Checks and PR Merging
+name: Lint and Auto-Merge
 
 on:
   push:
     branches:
-      - main # Change this to your main branch name
-  pull_request:
-    types:
-      - opened
-      - synchronize
+      - main
 
 jobs:
-  build:
+  lint-and-merge:
+    name: Lint and Merge
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set Up Node.js
+      - name: Run Linter
         uses: github/super-linter@v4
-        with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm install # Replace with your project's setup command
-
-      - name: Run Code Quality Checks
-        run: npm run lint # Replace with your code quality check command
-
-      - name: Build and Test
-        run: npm run build # Replace with your build and test commands
-
-      - name: Auto-Approve and Merge PR
-        if: github.event_name == 'pull_request'
         run: |
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          APPROVE_LABEL="automerge"
-          IS_MERGEABLE=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}" | jq -r .mergeable)
 
-          if [[ "${IS_MERGEABLE}" == "true" ]]; then
-            curl -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-              "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews" \
-              -d '{"body":"Auto-approved for merge","event":"APPROVE"}'
+      - name: Merge Pull Request
+        if: success()  # Only run if linting is successful
+        run: |
+          # Fetch the pull request number from the event payload
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
 
-            curl -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-              "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/merge" \
-              -d '{"sha":"${{ github.event.pull_request.head.sha }}","merge_method":"merge"}
-              -H "Accept: application/vnd.github.v3+json"
-          fi
+          # Merge the pull request using the GitHub API
+          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"merge_method":"merge"}' \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge"
