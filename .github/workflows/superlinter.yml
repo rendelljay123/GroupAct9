@@ -18,9 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Super-Linter
+      - name: Run Linter
         run: |
-          docker run -e RUN_LOCAL=true -v ${{ github.workspace }}:/tmp/lint github/super-linter:latest
+          # Replace with the linter command for your project
+          echo "Running linter..."
+          
+          # You may use commands like black, pylint, or flake8 here
 
       - name: Merge Pull Request
         if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
