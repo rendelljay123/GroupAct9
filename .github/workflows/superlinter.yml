@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   lint-and-merge:
@@ -14,11 +18,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Super-Linter
+        run: |
+          git clone https://github.com/github/super-linter.git /opt/super-linter
+          /opt/super-linter/install.sh
+          
       - name: Run Linter
         run: |
+          /opt/super-linter/action
 
       - name: Merge Pull Request
-        if: success()  # Only run if linting is successful
+        if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
         run: |
           # Fetch the pull request number from the event payload
           PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
