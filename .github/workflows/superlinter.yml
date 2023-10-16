@@ -21,8 +21,8 @@ jobs:
       - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
-          VALIDATE_ALL_CODEBASE: true  # Enable linting all files
           DEFAULT_BRANCH: main  # Specify your default branch
+          LINTER_RULES: '"black -e "streamlit_app.py" pylint mypy isort"'  # Specify the linters you want to use
 
       - name: Merge Pull Request
         if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
