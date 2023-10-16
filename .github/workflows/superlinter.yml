@@ -1,34 +1,28 @@
-name: Lint
+name: Super-Linter
 
-on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: push
 
 jobs:
-  run-linters:
-    name: Run linters
+  super-lint:
+    name: Lint code base
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Python dependencies
-        run: pip install black flake8
+      - name: Merge Pull Request
+        if: success()  # Only run if the Super-Linter check was successful
+        run: |
+          # Fetch the pull request number from the event payload
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          black: true
-          flake8: true
+          # Merge the pull request using the GitHub API
+          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"merge_method":"merge"}' \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/merge"
