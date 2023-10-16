@@ -20,11 +20,21 @@ jobs:
 
       - name: Install Super-Linter
         run: |
+          # Clone the Super-Linter repository
           git clone https://github.com/github/super-linter.git /opt/super-linter
-          /opt/super-linter/install.sh
           
+          # Change to the Super-Linter directory
+          cd /opt/super-linter
+          
+          # Make the installation script executable
+          chmod +x install.sh
+          
+          # Run the Super-Linter installation script
+          ./install.sh
+
       - name: Run Linter
         run: |
+          # Run the Super-Linter tool
           /opt/super-linter/action
 
       - name: Merge Pull Request
