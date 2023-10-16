@@ -18,8 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Linter
-        run: |
+      - name: Run Super-Linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: true  # Enable linting all files
+          DEFAULT_BRANCH: main  # Specify your default branch
 
       - name: Merge Pull Request
         if: github.event_name == 'pull_request' && success()  # Only run if it's a PR and linting is successful
