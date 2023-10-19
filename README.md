@@ -7,3 +7,6 @@ To use the app:
 
 1. Select the appropriate plant to detect.
 2. Upload the image
+
+LINK:
+https://rendelljay123-groupact9-streamlit-app-mqyho3.streamlit.app/
